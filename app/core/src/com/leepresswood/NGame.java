@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.leepresswood.constants.ApplicationConstants;
+import com.leepresswood.constants.InputGameConstants;
 import com.leepresswood.handlers.GameStateManager;
 import com.leepresswood.input.InputGame;
 import com.sun.org.apache.xpath.internal.functions.FuncFalse;
@@ -40,6 +41,7 @@ public class NGame extends ApplicationAdapter {
 			time_accumulator -= ApplicationConstants.STEP;
 			gsm.update(ApplicationConstants.STEP);
 			gsm.render();
+			InputGameConstants.update();
 		}
 	}
 

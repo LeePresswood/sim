@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
 import com.leepresswood.constants.ApplicationConstants
+import com.leepresswood.constants.InputGameConstants
 import com.leepresswood.constants.PlayStateConstants
 import com.leepresswood.handlers.ContactHandler
 import com.leepresswood.handlers.GameStateManager
@@ -80,11 +81,18 @@ public class Play extends GameState{
 
     @Override
     void handleInput() {
-
+        if (InputGameConstants.isDown(InputGameConstants.BUTTON1)){
+            println "Hold Z"
+        }
+        if (InputGameConstants.isPressed(InputGameConstants.BUTTON2)){
+            println "Pressed X"
+        }
     }
 
     @Override
     void update(float delta) {
+        handleInput()
+
         world.step(delta, PlayStateConstants.POSITION_ITERATIONS, PlayStateConstants.VELOCITY_ITERATIONS)
     }
 
