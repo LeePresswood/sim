@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.leepresswood.constants.ApplicationConstants;
 import com.leepresswood.handlers.GameStateManager;
+import com.leepresswood.input.InputGame;
 import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 
 public class NGame extends ApplicationAdapter {
@@ -23,6 +24,8 @@ public class NGame extends ApplicationAdapter {
 
 	@Override
 	public void create() {
+		Gdx.input.setInputProcessor(new InputGame());
+
 		batch = new SpriteBatch();
 		game_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
 		hud_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
