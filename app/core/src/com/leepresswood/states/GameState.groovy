@@ -8,7 +8,7 @@ import com.leepresswood.handlers.GameStateManager
 /**
  * Created by Lee on 3/23/2016.
  */
-class abstract class GameState {
+public abstract class GameState {
     protected GameStateManager gsm;
     protected NGame game;
 

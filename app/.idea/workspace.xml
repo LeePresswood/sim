@@ -45,18 +45,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NGame.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/NGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.49066213">
+              <caret line="27" column="99" selection-start-line="27" selection-start-column="99" selection-end-line="27" selection-end-column="99" />
               <folding>
-                <element signature="e#554#555#0" expanded="true" />
-                <element signature="e#573#574#0" expanded="true" />
-                <element signature="e#616#617#0" expanded="true" />
-                <element signature="e#638#639#0" expanded="true" />
-                <element signature="e#680#681#0" expanded="true" />
-                <element signature="e#701#702#0" expanded="true" />
+                <element signature="e#1348#1349#0" expanded="true" />
+                <element signature="e#1367#1368#0" expanded="true" />
+                <element signature="e#1410#1411#0" expanded="true" />
+                <element signature="e#1432#1433#0" expanded="true" />
+                <element signature="e#1474#1475#0" expanded="true" />
+                <element signature="e#1495#1496#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/states/GameState.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+              <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
               <folding>
                 <element signature="e#33#84#0" expanded="true" />
               </folding>
@@ -74,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameStateManager.groovy" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameStateManager.groovy" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/handlers/GameStateManager.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8845501">
-              <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
               <folding>
                 <element signature="e#35#64#0" expanded="true" />
               </folding>
@@ -86,12 +86,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameStateManagerConstants.groovy" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/constants/GameStateManagerConstants.groovy">
+      <file leaf-file-name="Play.groovy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/states/Play.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-              <folding />
+              <caret line="29" column="53" selection-start-line="29" selection-start-column="53" selection-end-line="29" selection-end-column="53" />
+              <folding>
+                <element signature="e#33#80#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -666,13 +668,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/leepresswood/constants/ApplicationConstants.groovy" />
         <option value="$PROJECT_DIR$/desktop/src/com/leepresswood/desktop/DesktopLauncher.java" />
-        <option value="$PROJECT_DIR$/core/src/com/leepresswood/NGame.java" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/GameState.groovy" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/constants/GameStateManagerConstants.groovy" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/states/GameState.groovy" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/handlers/GameStateManager.groovy" />
+        <option value="$PROJECT_DIR$/core/src/com/leepresswood/states/Play.groovy" />
+        <option value="$PROJECT_DIR$/core/src/com/leepresswood/constants/ApplicationConstants.groovy" />
+        <option value="$PROJECT_DIR$/core/src/com/leepresswood/NGame.java" />
       </list>
     </option>
   </component>
@@ -1328,12 +1331,12 @@
       <created>1458784358073</created>
       <option name="number" value="Default" />
       <updated>1458784358073</updated>
-      <workItem from="1458784375314" duration="2522000" />
+      <workItem from="1458784375314" duration="3179000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2522000" />
+    <option name="totallyTimeSpent" value="3179000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1414,53 +1417,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/NGame.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/handlers/GameStateManager.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
           <folding>
-            <element signature="e#554#555#0" expanded="true" />
-            <element signature="e#573#574#0" expanded="true" />
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#638#639#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
-            <element signature="e#701#702#0" expanded="true" />
+            <element signature="e#35#64#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/constants/ApplicationConstants.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.057724956">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/constants/GameStateManagerConstants.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/states/GameState.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
           <folding>
             <element signature="e#33#84#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/handlers/GameStateManager.groovy">
+    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/constants/GameStateManagerConstants.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8845501">
-          <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.11544991">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/states/Play.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="53" selection-start-line="29" selection-start-column="53" selection-end-line="29" selection-end-column="53" />
           <folding>
-            <element signature="e#35#64#0" expanded="true" />
+            <element signature="e#33#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/constants/ApplicationConstants.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23089983">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/NGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49066213">
+          <caret line="27" column="99" selection-start-line="27" selection-start-column="99" selection-end-line="27" selection-end-column="99" />
+          <folding>
+            <element signature="e#1348#1349#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1432#1433#0" expanded="true" />
+            <element signature="e#1474#1475#0" expanded="true" />
+            <element signature="e#1495#1496#0" expanded="true" />
           </folding>
         </state>
       </provider>

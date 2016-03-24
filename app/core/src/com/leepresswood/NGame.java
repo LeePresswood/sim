@@ -8,11 +8,37 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.leepresswood.constants.ApplicationConstants;
+import com.leepresswood.handlers.GameStateManager;
+import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 
 public class NGame extends ApplicationAdapter {
+	private float time_accumulator;
+
 	private SpriteBatch batch;
 	private OrthographicCamera game_cam;
 	private OrthographicCamera hud_cam;
+
+	private GameStateManager gsm;
+
+	@Override
+	public void create() {
+		batch = new SpriteBatch();
+		game_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
+		hud_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
+
+		gsm = new GameStateManager(this);
+	}
+
+	@Override
+	public void render() {
+		time_accumulator += Gdx.graphics.getDeltaTime();
+		while(time_accumulator >= ApplicationConstants.STEP){
+			time_accumulator -= ApplicationConstants.STEP;
+			gsm.update(ApplicationConstants.STEP);
+			gsm.render();
+		}
+	}
 
 	public SpriteBatch getBatch() {
 		return batch;
@@ -24,20 +50,5 @@ public class NGame extends ApplicationAdapter {
 
 	public OrthographicCamera getHudCam() {
 		return hud_cam;
-	}
-
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
 	}
 }
