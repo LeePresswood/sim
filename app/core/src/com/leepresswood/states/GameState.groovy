@@ -3,6 +3,7 @@ package com.leepresswood.states
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.leepresswood.NGame
+import com.leepresswood.handlers.GameStateManager
 
 /**
  * Created by Lee on 3/23/2016.
@@ -22,4 +23,9 @@ class abstract class GameState {
         game_cam = game.getGameCam();
         hud_cam = game.getHudCam();
     }
+
+    public abstract void handleInput();
+    public abstract void update(float delta);
+    public abstract void render();
+    public abstract void dispose();
 }
