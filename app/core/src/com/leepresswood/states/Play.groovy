@@ -27,7 +27,7 @@ public class Play extends GameState{
     void render() {
         batch.setProjectionMatrix(game_cam.combined);
         batch.begin();
-            font.draw(batch, "Play State", 100, 100);
+            font.draw(batch, "Play State", 50, 50);
         batch.end();
     }
 
