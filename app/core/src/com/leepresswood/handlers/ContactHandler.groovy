@@ -15,7 +15,8 @@ class ContactHandler implements ContactListener{
      * Called when two fixtures start to collide.
      */
     void beginContact(Contact contact) {
-        println "Contact."
+        println contact.fixtureA.userData.banana
+        println contact.fixtureB.userData.banana
     }
 
     @Override
@@ -23,7 +24,6 @@ class ContactHandler implements ContactListener{
      * Called when two fixtures stop colliding.
      */
     void endContact(Contact contact) {
-
     }
 
     //Collision handling

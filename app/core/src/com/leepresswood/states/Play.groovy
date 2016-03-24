@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.CircleShape
+import com.badlogic.gdx.physics.box2d.Fixture
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
@@ -15,6 +16,7 @@ import com.leepresswood.constants.ApplicationConstants
 import com.leepresswood.constants.PlayStateConstants
 import com.leepresswood.handlers.ContactHandler
 import com.leepresswood.handlers.GameStateManager
+import sun.reflect.generics.tree.Tree
 
 /**
  * Created by Lee on 3/23/2016.
@@ -46,7 +48,7 @@ public class Play extends GameState{
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_GROUND
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_BOX + PlayStateConstants.BIT_BALL
-        body.createFixture(fixtureDef)
+        body.createFixture(fixtureDef).setUserData(banana : 2000)
 
         //Falling box.
         definition.position.set(0 / PlayStateConstants.PIXELS_PER_METER as float, 50 / PlayStateConstants.PIXELS_PER_METER as float)
@@ -57,10 +59,9 @@ public class Play extends GameState{
         shape.setAsBox(5 / PlayStateConstants.PIXELS_PER_METER as float, 5 / PlayStateConstants.PIXELS_PER_METER as float)
 
         fixtureDef.shape = shape
-        fixtureDef.restitution = 0.0f
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_BOX
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_GROUND
-        body.createFixture(fixtureDef)
+        body.createFixture(fixtureDef).setUserData(banana : 0)
 
         //Create ball
         definition.position.set(25 / PlayStateConstants.PIXELS_PER_METER as float, 60 / PlayStateConstants.PIXELS_PER_METER as float)
@@ -69,11 +70,10 @@ public class Play extends GameState{
         CircleShape circleShape = new CircleShape()
         circleShape.setRadius(5f / PlayStateConstants.PIXELS_PER_METER as float)
         fixtureDef.shape = circleShape
+        fixtureDef.restitution = 1.0f
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_BALL
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_GROUND
-        body.createFixture(fixtureDef)
-
-
+        body.createFixture(fixtureDef).setUserData(banana : 123)
 
         b2d_cam = new OrthographicCamera((ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER).floatValue(), (ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER).floatValue())
     }
