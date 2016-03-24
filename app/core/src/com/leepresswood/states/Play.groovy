@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
 import com.leepresswood.constants.ApplicationConstants
 import com.leepresswood.constants.PlayStateConstants
+import com.leepresswood.handlers.ContactHandler
 import com.leepresswood.handlers.GameStateManager
 
 /**
@@ -28,6 +29,8 @@ public class Play extends GameState{
 
         world = new World(new Vector2(PlayStateConstants.GRAVITY_X, PlayStateConstants.GRAVITY_Y), true)
         debug_renderer = new Box2DDebugRenderer()
+
+        world.setContactListener(new ContactHandler())
 
         //Static body.
         BodyDef definition = new BodyDef()
