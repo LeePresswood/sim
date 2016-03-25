@@ -3,6 +3,9 @@ package com.leepresswood.states
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.maps.tiled.TiledMap
+import com.badlogic.gdx.maps.tiled.TmxMapLoader
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
@@ -24,6 +27,8 @@ public class Play extends GameState{
     private Box2DDebugRenderer debug_renderer
     private OrthographicCamera b2d_cam
     private ContactHandler contact_handler
+    private TiledMap tiled_map
+    private OrthogonalTiledMapRenderer map_renderer
 
     private Body player_body
 
@@ -83,6 +88,11 @@ public class Play extends GameState{
         player_body.createFixture(fixtureDef).setUserData(foot : true)
 
         b2d_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)
+
+
+        //Tiled map
+        tiled_map = new TmxMapLoader().load("maps/test.tmx")
+        map_renderer = new OrthogonalTiledMapRenderer(tiled_map)
     }
 
     @Override
@@ -108,6 +118,10 @@ public class Play extends GameState{
     @Override
     void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT)
+
+        map_renderer.setView(game_cam)
+        map_renderer.render()
+
         debug_renderer.render(world, b2d_cam.combined)
     }
 
