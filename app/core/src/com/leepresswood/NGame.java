@@ -28,8 +28,10 @@ public class NGame extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(new InputGame());
 
 		batch = new SpriteBatch();
-		game_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
-		hud_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
+		game_cam = new OrthographicCamera();
+		game_cam.setToOrtho(false, ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
+		hud_cam = new OrthographicCamera();
+		hud_cam.setToOrtho(false, ApplicationConstants.V_WIDTH, ApplicationConstants.V_HEIGHT);
 
 		gsm = new GameStateManager(this);
 	}

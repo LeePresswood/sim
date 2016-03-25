@@ -4,12 +4,15 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.maps.tiled.TiledMap
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
+import com.badlogic.gdx.physics.box2d.ChainShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
@@ -27,10 +30,12 @@ public class Play extends GameState{
     private Box2DDebugRenderer debug_renderer
     private OrthographicCamera b2d_cam
     private ContactHandler contact_handler
-    private TiledMap tiled_map
-    private OrthogonalTiledMapRenderer map_renderer
 
     private Body player_body
+
+    private TiledMap tiled_map
+    private OrthogonalTiledMapRenderer map_renderer
+    private float tile_size
 
     protected Play(GameStateManager gsm) {
         super(gsm)
@@ -43,27 +48,16 @@ public class Play extends GameState{
 
         //Static body.
         BodyDef definition = new BodyDef()
-        definition.position.set((0 / PlayStateConstants.PIXELS_PER_METER).floatValue(), (0 / PlayStateConstants.PIXELS_PER_METER).floatValue())
-        definition.type = BodyDef.BodyType.StaticBody
-
-        Body body = world.createBody(definition)
-
         PolygonShape shape = new PolygonShape()
-        shape.setAsBox(50f / PlayStateConstants.PIXELS_PER_METER as float, 5f / PlayStateConstants.PIXELS_PER_METER as float)
-
         FixtureDef fixtureDef = new FixtureDef()
-        fixtureDef.shape = shape
-        fixtureDef.filter.categoryBits = PlayStateConstants.BIT_GROUND
-        fixtureDef.filter.maskBits = PlayStateConstants.BIT_PLAYER
-        body.createFixture(fixtureDef).setUserData(banana : 2000)
 
         //Falling box.
-        definition.position.set(0 / PlayStateConstants.PIXELS_PER_METER as float, 50 / PlayStateConstants.PIXELS_PER_METER as float)
+        definition.position.set(45f / PlayStateConstants.PIXELS_PER_METER as float, 200f / PlayStateConstants.PIXELS_PER_METER as float)
         definition.type = BodyDef.BodyType.DynamicBody
 
         player_body = world.createBody(definition)
 
-        shape.setAsBox(5 / PlayStateConstants.PIXELS_PER_METER as float, 5 / PlayStateConstants.PIXELS_PER_METER as float)
+        shape.setAsBox(5f / PlayStateConstants.PIXELS_PER_METER as float, 5f / PlayStateConstants.PIXELS_PER_METER as float)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
@@ -71,7 +65,7 @@ public class Play extends GameState{
         player_body.createFixture(fixtureDef).setUserData(body : true)
 
         //Foot sensor
-        shape.setAsBox(2 / PlayStateConstants.PIXELS_PER_METER as float, 2 / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -5 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
+        shape.setAsBox(2f / PlayStateConstants.PIXELS_PER_METER as float, 2f / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -5 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
@@ -87,12 +81,51 @@ public class Play extends GameState{
 
         player_body.createFixture(fixtureDef).setUserData(foot : true)
 
-        b2d_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)
+        b2d_cam = new OrthographicCamera()
+        b2d_cam.setToOrtho(false, ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)
 
 
         //Tiled map
         tiled_map = new TmxMapLoader().load("maps/test.tmx")
         map_renderer = new OrthogonalTiledMapRenderer(tiled_map)
+
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiled_map.getLayers().get("red")
+        tile_size = layer.getTileWidth()
+
+        for(int row = 0; row < layer.getHeight(); row++){
+            for(int column = 0; column < layer.getWidth(); column++){
+                //Get cell
+                 Cell cell = layer.getCell(column, row)
+
+                //Check if cell exists
+                if (!cell?.getTile()){
+                    continue
+                }
+
+                //Create body and fixture
+                definition.type = BodyDef.BodyType.StaticBody
+                definition.position.set((column + 0.5) * tile_size / PlayStateConstants.PIXELS_PER_METER as float, (row + 0.5) * tile_size / PlayStateConstants.PIXELS_PER_METER as float)
+
+                //For the shape of ground tiles, use a ChainShape to avoid the issue of getting stuck between tiles.
+                ChainShape chainShape = new ChainShape()
+                Vector2[] vectors = new Vector2[3]
+
+                //Create chain of vectors.
+                vectors[0] = new Vector2(-tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float, -tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float) //Bottom-left corner of tile.
+                vectors[1] = new Vector2(-tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float, tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float) //Top-left corner of tile.
+                vectors[2] = new Vector2(tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float, tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float) //Top-right corner of tile.
+                chainShape.createChain(vectors)
+
+                fixtureDef.friction = 0
+                fixtureDef.shape = chainShape
+                fixtureDef.filter.categoryBits = PlayStateConstants.BIT_GROUND
+                fixtureDef.filter.maskBits = PlayStateConstants.BIT_PLAYER
+                fixtureDef.isSensor = false
+
+                world.createBody(definition).createFixture(fixtureDef)
+
+            }
+        }
     }
 
     @Override

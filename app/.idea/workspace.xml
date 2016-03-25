@@ -48,11 +48,11 @@
       <file leaf-file-name="Play.groovy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/states/Play.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0526316">
-              <caret line="122" column="29" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.62478775">
+              <caret line="124" column="69" selection-start-line="124" selection-start-column="69" selection-end-line="124" selection-end-column="69" />
               <folding>
                 <element signature="e#33#60#0" expanded="true" />
-                <element signature="e#3414#3733#0" expanded="true" />
+                <element signature="e#2998#3317#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -678,8 +678,8 @@
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/constants/InputGame.groovy" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/constants/InputGameConstants.groovy" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/input/InputGame.groovy" />
-        <option value="$PROJECT_DIR$/core/src/com/leepresswood/NGame.java" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/handlers/ContactHandler.groovy" />
+        <option value="$PROJECT_DIR$/core/src/com/leepresswood/NGame.java" />
         <option value="$PROJECT_DIR$/core/src/com/leepresswood/states/Play.groovy" />
       </list>
     </option>
@@ -1366,12 +1366,12 @@
       <created>1458784358073</created>
       <option name="number" value="Default" />
       <updated>1458784358073</updated>
-      <workItem from="1458784375314" duration="14047000" />
+      <workItem from="1458784375314" duration="15923000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14047000" />
+    <option name="totallyTimeSpent" value="15923000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1504,14 +1504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/NGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62478775">
-          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/constants/InputGameConstants.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1544,13 +1536,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/NGame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19185059">
+          <caret line="33" column="93" selection-start-line="33" selection-start-column="93" selection-end-line="33" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/leepresswood/states/Play.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0526316">
-          <caret line="122" column="29" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.62478775">
+          <caret line="124" column="69" selection-start-line="124" selection-start-column="69" selection-end-line="124" selection-end-column="69" />
           <folding>
             <element signature="e#33#60#0" expanded="true" />
-            <element signature="e#3414#3733#0" expanded="true" />
+            <element signature="e#2998#3317#0" expanded="true" />
           </folding>
         </state>
       </provider>
