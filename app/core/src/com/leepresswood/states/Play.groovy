@@ -23,6 +23,9 @@ public class Play extends GameState{
     private World world
     private Box2DDebugRenderer debug_renderer
     private OrthographicCamera b2d_cam
+    private ContactHandler contact_handler
+
+    private Body player_body
 
     protected Play(GameStateManager gsm) {
         super(gsm)
@@ -30,7 +33,8 @@ public class Play extends GameState{
         world = new World(new Vector2(PlayStateConstants.GRAVITY_X, PlayStateConstants.GRAVITY_Y), true)
         debug_renderer = new Box2DDebugRenderer()
 
-        world.setContactListener(new ContactHandler())
+        contact_handler = new ContactHandler()
+        world.setContactListener(contact_handler)
 
         //Static body.
         BodyDef definition = new BodyDef()
@@ -52,14 +56,14 @@ public class Play extends GameState{
         definition.position.set(0 / PlayStateConstants.PIXELS_PER_METER as float, 50 / PlayStateConstants.PIXELS_PER_METER as float)
         definition.type = BodyDef.BodyType.DynamicBody
 
-        body = world.createBody(definition)
+        player_body = world.createBody(definition)
 
         shape.setAsBox(5 / PlayStateConstants.PIXELS_PER_METER as float, 5 / PlayStateConstants.PIXELS_PER_METER as float)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_GROUND
-        body.createFixture(fixtureDef).setUserData(body : true)
+        player_body.createFixture(fixtureDef).setUserData(body : true)
 
         //Foot sensor
         shape.setAsBox(2 / PlayStateConstants.PIXELS_PER_METER as float, 2 / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -5 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
@@ -76,18 +80,21 @@ public class Play extends GameState{
          */
         fixtureDef.isSensor = true
 
-        body.createFixture(fixtureDef).setUserData(foot : true)
+        player_body.createFixture(fixtureDef).setUserData(foot : true)
 
         b2d_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)
     }
 
     @Override
     void handleInput() {
-        if (InputGameConstants.isDown(InputGameConstants.BUTTON1)){
-            println "Hold Z"
+        if (InputGameConstants.isPressed(InputGameConstants.BUTTON1)){
+            if (contact_handler.isPlayerOGround()){
+                //In Newtons. Default mass is 1KG.
+                player_body.applyForceToCenter(0, 200f, true)
+            }
         }
         if (InputGameConstants.isPressed(InputGameConstants.BUTTON2)){
-            println "Pressed X"
+
         }
     }
 

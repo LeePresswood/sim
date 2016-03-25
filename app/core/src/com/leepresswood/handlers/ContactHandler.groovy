@@ -9,20 +9,21 @@ import com.badlogic.gdx.physics.box2d.Manifold
  * Created by Lee on 3/24/2016.
  */
 class ContactHandler implements ContactListener{
+    private boolean player_on_ground
+
     //Collision detection
     @Override
     /**
      * Called when two fixtures start to collide.
      */
     void beginContact(Contact contact) {
-//        println contact.fixtureA.userData.banana
-//        println contact.fixtureB.userData.banana
-
         if (contact.fixtureA.userData?.foot){
             println "Foot sensed at A."
+            player_on_ground = true
         }
         if (contact.fixtureB.userData?.foot){
             println "Foot sensed at B."
+            player_on_ground = true
         }
     }
 
@@ -31,6 +32,14 @@ class ContactHandler implements ContactListener{
      * Called when two fixtures stop colliding.
      */
     void endContact(Contact contact) {
+        if (contact.fixtureA.userData?.foot){
+            println "Foot lifted at A."
+            player_on_ground = false
+        }
+        if (contact.fixtureB.userData?.foot){
+            println "Foot lifted at B."
+            player_on_ground = false
+        }
     }
 
     //Collision handling
@@ -48,5 +57,9 @@ class ContactHandler implements ContactListener{
      */
     void postSolve(Contact contact, ContactImpulse impulse) {
 
+    }
+
+    public boolean isPlayerOGround(){
+        return player_on_ground
     }
 }
