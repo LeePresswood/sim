@@ -61,7 +61,7 @@ public class Play extends GameState{
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
-        fixtureDef.filter.maskBits = PlayStateConstants.BIT_GROUND
+        fixtureDef.filter.maskBits = PlayStateConstants.BIT_RED
         player_body.createFixture(fixtureDef).setUserData(body : true)
 
         //Foot sensor
@@ -69,7 +69,7 @@ public class Play extends GameState{
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
-        fixtureDef.filter.maskBits = PlayStateConstants.BIT_GROUND
+        fixtureDef.filter.maskBits = PlayStateConstants.BIT_RED
 
         /**
          * Let's talk about isSensor.
@@ -110,7 +110,7 @@ public class Play extends GameState{
                 ChainShape chainShape = new ChainShape()
                 Vector2[] vectors = new Vector2[3]
 
-                //Create chain of vectors.
+                //Create chain of vectors. Note that these are in relation to the definition position from above. Because we're focused on the center of the tile, move half the size in each direction and find the corners.
                 vectors[0] = new Vector2(-tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float, -tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float) //Bottom-left corner of tile.
                 vectors[1] = new Vector2(-tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float, tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float) //Top-left corner of tile.
                 vectors[2] = new Vector2(tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float, tile_size / 2f / PlayStateConstants.PIXELS_PER_METER as float) //Top-right corner of tile.
@@ -118,7 +118,7 @@ public class Play extends GameState{
 
                 fixtureDef.friction = 0
                 fixtureDef.shape = chainShape
-                fixtureDef.filter.categoryBits = PlayStateConstants.BIT_GROUND
+                fixtureDef.filter.categoryBits = PlayStateConstants.BIT_RED
                 fixtureDef.filter.maskBits = PlayStateConstants.BIT_PLAYER
                 fixtureDef.isSensor = false
 

@@ -23,7 +23,8 @@ class PlayStateConstants {
      * bit addition. That's why we do powers of two. Each 1 position ib the binary bits means a positive connection.
      * To get the "list", simply add together all these bits.
      */
-    public static final short BIT_GROUND = 2
-    public static final short BIT_PLAYER = 4
-    public static final short BIT_BALL = 8
+    public static final short BIT_PLAYER = 2
+    public static final short BIT_RED = 4
+    public static final short BIT_GREEN = 8
+    public static final short BIT_BLUE = 16
 }
