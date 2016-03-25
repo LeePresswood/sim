@@ -62,11 +62,20 @@ public class Play extends GameState{
         body.createFixture(fixtureDef).setUserData(body : true)
 
         //Foot sensor
-        shape.setAsBox(2 / PlayStateConstants.PIXELS_PER_METER as float, 2 / PlayStateConstants.PIXELS_PER_METER as float)
+        shape.setAsBox(2 / PlayStateConstants.PIXELS_PER_METER as float, 2 / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -5 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_GROUND
+
+        /**
+         * Let's talk about isSensor.
+         * Sensors are regular fixtures in the sense that they detect collision, but they are transparent.
+         * That is to say that they do not physically affect the simulation of the game. Instead, they aim
+         * to act as the "side" sensor for a block.
+         */
+        fixtureDef.isSensor = true
+
         body.createFixture(fixtureDef).setUserData(foot : true)
 
         b2d_cam = new OrthographicCamera(ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)

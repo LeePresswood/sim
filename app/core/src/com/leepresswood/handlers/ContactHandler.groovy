@@ -17,6 +17,13 @@ class ContactHandler implements ContactListener{
     void beginContact(Contact contact) {
 //        println contact.fixtureA.userData.banana
 //        println contact.fixtureB.userData.banana
+
+        if (contact.fixtureA.userData?.foot){
+            println "Foot sensed at A."
+        }
+        if (contact.fixtureB.userData?.foot){
+            println "Foot sensed at B."
+        }
     }
 
     @Override
