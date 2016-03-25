@@ -24,6 +24,6 @@ class PlayStateConstants {
      * To get the "list", simply add together all these bits.
      */
     public static final short BIT_GROUND = 2
-    public static final short BIT_BOX = 4
+    public static final short BIT_PLAYER = 4
     public static final short BIT_BALL = 8
 }
