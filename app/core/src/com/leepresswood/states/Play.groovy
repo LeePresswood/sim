@@ -124,9 +124,9 @@ public class Play extends GameState{
     private void createTiles(){
         tiled_map = new TmxMapLoader().load("maps/test.tmx")
         map_renderer = new OrthogonalTiledMapRenderer(tiled_map)
+        tile_size = tiled_map.getProperties().get("tilewidth") as float
 
         TiledMapTileLayer layer
-
         layer = (TiledMapTileLayer) tiled_map.getLayers().get("red")
         createLayer(layer, PlayStateConstants.BIT_RED)
         layer = (TiledMapTileLayer) tiled_map.getLayers().get("green")
@@ -134,14 +134,11 @@ public class Play extends GameState{
         layer = (TiledMapTileLayer) tiled_map.getLayers().get("blue")
         createLayer(layer, PlayStateConstants.BIT_BLUE)
 
-        tile_size = tiled_map.getProperties().get("tilewidth") as float
     }
 
     private void createLayer(TiledMapTileLayer layer, short bits){
         BodyDef definition = new BodyDef()
         FixtureDef fixtureDef = new FixtureDef()
-        ChainShape chainShape = new ChainShape()
-        Vector2[] vectors = new Vector2[3]
 
         for(int row = 0; row < layer.getHeight(); row++){
             for(int column = 0; column < layer.getWidth(); column++){
@@ -149,6 +146,9 @@ public class Play extends GameState{
                 if (!cell?.getTile()){
                     continue
                 }
+
+                ChainShape chainShape = new ChainShape()
+                Vector2[] vectors = new Vector2[3]
 
                 //Create body and fixture
                 definition.type = BodyDef.BodyType.StaticBody
