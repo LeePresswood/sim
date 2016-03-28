@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.leepresswood.constants.ApplicationConstants;
 import com.leepresswood.constants.InputGameConstants;
 import com.leepresswood.handlers.GameStateManager;
+import com.leepresswood.handlers.ResourceManager;
 import com.leepresswood.input.InputGame;
 import com.sun.org.apache.xpath.internal.functions.FuncFalse;
 
@@ -23,9 +24,14 @@ public class NGame extends ApplicationAdapter {
 
 	private GameStateManager gsm;
 
+	public static ResourceManager resources;
+
 	@Override
 	public void create() {
 		Gdx.input.setInputProcessor(new InputGame());
+
+		resources = new ResourceManager();
+		resources.loadTexture("images/bunny.png", "bunny");
 
 		batch = new SpriteBatch();
 		game_cam = new OrthographicCamera();
