@@ -70,11 +70,11 @@ public class Play extends GameState{
     void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
+        player.render(batch)
         batch.setProjectionMatrix(game_cam.combined)
         map_renderer.setView(game_cam)
         map_renderer.render()
         debug_renderer.render(world, b2d_cam.combined)
-        player.render(batch)
     }
 
     @Override
@@ -98,10 +98,11 @@ public class Play extends GameState{
 
         definition.position.set(45f / PlayStateConstants.PIXELS_PER_METER as float, 200f / PlayStateConstants.PIXELS_PER_METER as float)
         definition.type = BodyDef.BodyType.DynamicBody
+        definition.linearVelocity.set(1f, 0f)
 
         Body body = world.createBody(definition)
 
-        shape.setAsBox(5f / PlayStateConstants.PIXELS_PER_METER as float, 5f / PlayStateConstants.PIXELS_PER_METER as float)
+        shape.setAsBox(13f / PlayStateConstants.PIXELS_PER_METER as float, 13f / PlayStateConstants.PIXELS_PER_METER as float)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
@@ -109,7 +110,7 @@ public class Play extends GameState{
         body.createFixture(fixtureDef).setUserData(body : true)
 
         //Foot sensor
-        shape.setAsBox(2f / PlayStateConstants.PIXELS_PER_METER as float, 2f / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -5 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
+        shape.setAsBox(13f / PlayStateConstants.PIXELS_PER_METER as float, 2f / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -13 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
