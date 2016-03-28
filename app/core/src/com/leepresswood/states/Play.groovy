@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.World
 import com.leepresswood.constants.ApplicationConstants
 import com.leepresswood.constants.InputGameConstants
 import com.leepresswood.constants.PlayStateConstants
+import com.leepresswood.entities.Player
 import com.leepresswood.handlers.ContactHandler
 import com.leepresswood.handlers.GameStateManager
 
@@ -31,22 +32,16 @@ public class Play extends GameState{
     private OrthographicCamera b2d_cam
     private ContactHandler contact_handler
 
-    private Body player_body
-
     private TiledMap tiled_map
     private OrthogonalTiledMapRenderer map_renderer
     private float tile_size
 
+    private Player player
+
     protected Play(GameStateManager gsm) {
         super(gsm)
 
-        b2d_cam = new OrthographicCamera()
-        b2d_cam.setToOrtho(false, ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)
-        world = new World(new Vector2(PlayStateConstants.GRAVITY_X, PlayStateConstants.GRAVITY_Y), true)
-        debug_renderer = new Box2DDebugRenderer()
-        contact_handler = new ContactHandler()
-        world.setContactListener(contact_handler)
-
+        createWorld()
         createPlayer()
         createTiles()
     }
@@ -56,7 +51,7 @@ public class Play extends GameState{
         if (InputGameConstants.isPressed(InputGameConstants.BUTTON1)){
             if (contact_handler.isPlayerOGround()){
                 //In Newtons. Default mass is 1KG.
-                player_body.applyForceToCenter(0, 200f, true)
+                player.getBody().applyForceToCenter(0, 200f, true)
             }
         }
         if (InputGameConstants.isPressed(InputGameConstants.BUTTON2)){
@@ -67,23 +62,33 @@ public class Play extends GameState{
     @Override
     void update(float delta) {
         handleInput()
-
         world.step(delta, PlayStateConstants.POSITION_ITERATIONS, PlayStateConstants.VELOCITY_ITERATIONS)
+        player.update(delta)
     }
 
     @Override
     void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
+        batch.setProjectionMatrix(game_cam.combined)
         map_renderer.setView(game_cam)
         map_renderer.render()
-
         debug_renderer.render(world, b2d_cam.combined)
+        player.render(batch)
     }
 
     @Override
     void dispose() {
 
+    }
+
+    private void createWorld(){
+        b2d_cam = new OrthographicCamera()
+        b2d_cam.setToOrtho(false, ApplicationConstants.V_WIDTH / PlayStateConstants.PIXELS_PER_METER as float, ApplicationConstants.V_HEIGHT / PlayStateConstants.PIXELS_PER_METER as float)
+        world = new World(new Vector2(PlayStateConstants.GRAVITY_X, PlayStateConstants.GRAVITY_Y), true)
+        debug_renderer = new Box2DDebugRenderer()
+        contact_handler = new ContactHandler()
+        world.setContactListener(contact_handler)
     }
 
     private void createPlayer(){
@@ -94,14 +99,14 @@ public class Play extends GameState{
         definition.position.set(45f / PlayStateConstants.PIXELS_PER_METER as float, 200f / PlayStateConstants.PIXELS_PER_METER as float)
         definition.type = BodyDef.BodyType.DynamicBody
 
-        player_body = world.createBody(definition)
+        Body body = world.createBody(definition)
 
         shape.setAsBox(5f / PlayStateConstants.PIXELS_PER_METER as float, 5f / PlayStateConstants.PIXELS_PER_METER as float)
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_RED
-        player_body.createFixture(fixtureDef).setUserData(body : true)
+        body.createFixture(fixtureDef).setUserData(body : true)
 
         //Foot sensor
         shape.setAsBox(2f / PlayStateConstants.PIXELS_PER_METER as float, 2f / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -5 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
@@ -118,7 +123,9 @@ public class Play extends GameState{
          */
         fixtureDef.isSensor = true
 
-        player_body.createFixture(fixtureDef).setUserData(foot : true)
+        body.createFixture(fixtureDef).setUserData(foot : true)
+
+        player = new Player(body)
     }
 
     private void createTiles(){
