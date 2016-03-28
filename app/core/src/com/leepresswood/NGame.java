@@ -53,6 +53,11 @@ public class NGame extends ApplicationAdapter {
 		}
 	}
 
+	@Override
+	public void dispose() {
+		resources.disposeAllTextures();
+	}
+
 	public SpriteBatch getBatch() {
 		return batch;
 	}
