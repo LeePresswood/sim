@@ -127,6 +127,8 @@ public class Play extends GameState{
         body.createFixture(fixtureDef).setUserData(foot : true)
 
         player = new Player(body)
+
+        body.setUserData(data : player)
     }
 
     private void createTiles(){
