@@ -3,6 +3,8 @@ package com.leepresswood.states
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.maps.MapLayer
+import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell
@@ -13,12 +15,14 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.physics.box2d.ChainShape
+import com.badlogic.gdx.physics.box2d.CircleShape
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.badlogic.gdx.physics.box2d.World
 import com.leepresswood.constants.ApplicationConstants
 import com.leepresswood.constants.InputGameConstants
 import com.leepresswood.constants.PlayStateConstants
+import com.leepresswood.entities.Crystal
 import com.leepresswood.entities.Player
 import com.leepresswood.handlers.ContactHandler
 import com.leepresswood.handlers.GameStateManager
@@ -31,12 +35,14 @@ public class Play extends GameState{
     private Box2DDebugRenderer debug_renderer
     private OrthographicCamera b2d_cam
     private ContactHandler contact_handler
+    private boolean debug = false
 
     private TiledMap tiled_map
     private OrthogonalTiledMapRenderer map_renderer
     private float tile_size
 
     private Player player
+    private ArrayList<Crystal> crystals
 
     protected Play(GameStateManager gsm) {
         super(gsm)
@@ -64,17 +70,28 @@ public class Play extends GameState{
         handleInput()
         world.step(delta, PlayStateConstants.POSITION_ITERATIONS, PlayStateConstants.VELOCITY_ITERATIONS)
         player.update(delta)
+
+        for(Crystal crystal : crystals){
+            crystal.update(delta)
+        }
     }
 
     @Override
     void render() {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
-        player.render(batch)
         batch.setProjectionMatrix(game_cam.combined)
+        player.render(batch)
+        for(Crystal crystal : crystals){
+            crystal.render(batch)
+        }
+
         map_renderer.setView(game_cam)
         map_renderer.render()
-        debug_renderer.render(world, b2d_cam.combined)
+
+        if(debug){
+            debug_renderer.render(world, b2d_cam.combined)
+        }
     }
 
     @Override
@@ -144,6 +161,7 @@ public class Play extends GameState{
         layer = (TiledMapTileLayer) tiled_map.getLayers().get("blue")
         createLayer(layer, PlayStateConstants.BIT_BLUE)
 
+        createCrystals(tiled_map)
     }
 
     private void createLayer(TiledMapTileLayer layer, short bits){
@@ -180,6 +198,38 @@ public class Play extends GameState{
 
                 world.createBody(definition).createFixture(fixtureDef)
             }
+        }
+    }
+
+    private void createCrystals(TiledMap tiled_map){
+        crystals = new ArrayList<>()
+        MapLayer layer = tiled_map.getLayers().get("crystals")
+
+        BodyDef definition = new BodyDef()
+        FixtureDef fixtureDef = new FixtureDef()
+
+
+        for(MapObject object : layer.getObjects()){
+            float x = object.getProperties().get("x") / PlayStateConstants.PIXELS_PER_METER as float
+            float y = object.getProperties().get("y") / PlayStateConstants.PIXELS_PER_METER as float
+
+            definition.position.set(x, y)
+
+            CircleShape shape = new CircleShape()
+            shape.setRadius(8f / PlayStateConstants.PIXELS_PER_METER as float)
+
+            fixtureDef.shape = shape
+            fixtureDef.isSensor = true
+            fixtureDef.filter.categoryBits = PlayStateConstants.BIT_CRYSTAL
+            fixtureDef.filter.maskBits = PlayStateConstants.BIT_PLAYER
+
+            Body body = world.createBody(definition)
+            body.createFixture(fixtureDef)
+
+            Crystal crystal = new Crystal(body)
+            crystals.add(crystal)
+
+            body.setUserData(crystal)
         }
     }
 }
