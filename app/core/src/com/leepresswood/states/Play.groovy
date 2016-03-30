@@ -74,6 +74,13 @@ public class Play extends GameState{
         for(Crystal crystal : crystals){
             crystal.update(delta)
         }
+
+        for(Body body : contact_handler.getBodiesToRemove()){
+            crystals.remove(body.getUserData())
+            world.destroyBody(body)
+            player.collectCrystal()
+        }
+        contact_handler.getBodiesToRemove().clear()
     }
 
     @Override
@@ -131,7 +138,7 @@ public class Play extends GameState{
 
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
-        fixtureDef.filter.maskBits = PlayStateConstants.BIT_RED
+        fixtureDef.filter.maskBits = PlayStateConstants.BIT_RED + PlayStateConstants.BIT_CRYSTAL
 
         /**
          * Let's talk about isSensor.

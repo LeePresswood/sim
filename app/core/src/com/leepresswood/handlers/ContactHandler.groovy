@@ -35,10 +35,12 @@ class ContactHandler implements ContactListener{
         }
 
         if (fa.userData?.data == "crystal"){
+            println "Removing crystal at A."
             bodies_to_remove.add(fa.getBody())
         }
 
         if (fb.userData?.data == "crystal"){
+            println "Removing crystal at B."
             bodies_to_remove.add(fb.getBody())
         }
     }
