@@ -57,7 +57,7 @@ public class Play extends GameState{
         if (InputGameConstants.isPressed(InputGameConstants.BUTTON1)){
             if (contact_handler.isPlayerOGround()){
                 //In Newtons. Default mass is 1KG.
-                player.getBody().applyForceToCenter(0, 200f, true)
+                player.getBody().applyForceToCenter(0, 250f, true)
             }
         }
         if (InputGameConstants.isPressed(InputGameConstants.BUTTON2)){
@@ -113,9 +113,9 @@ public class Play extends GameState{
         PolygonShape shape = new PolygonShape()
         FixtureDef fixtureDef = new FixtureDef()
 
-        definition.position.set(45f / PlayStateConstants.PIXELS_PER_METER as float, 200f / PlayStateConstants.PIXELS_PER_METER as float)
+        definition.position.set(30f / PlayStateConstants.PIXELS_PER_METER as float, 200f / PlayStateConstants.PIXELS_PER_METER as float)
         definition.type = BodyDef.BodyType.DynamicBody
-        definition.linearVelocity.set(1f, 0f)
+        definition.linearVelocity.set(0.1f, 0f)
 
         Body body = world.createBody(definition)
 
@@ -124,7 +124,7 @@ public class Play extends GameState{
         fixtureDef.shape = shape
         fixtureDef.filter.categoryBits = PlayStateConstants.BIT_PLAYER
         fixtureDef.filter.maskBits = PlayStateConstants.BIT_RED
-        body.createFixture(fixtureDef).setUserData(body : true)
+        body.createFixture(fixtureDef).setUserData(data : "body")
 
         //Foot sensor
         shape.setAsBox(13f / PlayStateConstants.PIXELS_PER_METER as float, 2f / PlayStateConstants.PIXELS_PER_METER as float, new Vector2(0 / PlayStateConstants.PIXELS_PER_METER as float, -13 / PlayStateConstants.PIXELS_PER_METER as float), 0f)
@@ -141,7 +141,7 @@ public class Play extends GameState{
          */
         fixtureDef.isSensor = true
 
-        body.createFixture(fixtureDef).setUserData(foot : true)
+        body.createFixture(fixtureDef).setUserData(data : "foot")
 
         player = new Player(body)
 
@@ -224,12 +224,12 @@ public class Play extends GameState{
             fixtureDef.filter.maskBits = PlayStateConstants.BIT_PLAYER
 
             Body body = world.createBody(definition)
-            body.createFixture(fixtureDef)
+            body.createFixture(fixtureDef).setUserData(data : "crystal")
 
             Crystal crystal = new Crystal(body)
             crystals.add(crystal)
 
-            body.setUserData(crystal)
+            body.setUserData(data : crystal)
         }
     }
 }
