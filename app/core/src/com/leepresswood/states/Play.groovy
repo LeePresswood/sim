@@ -74,13 +74,6 @@ public class Play extends GameState{
         for(Crystal crystal : crystals){
             crystal.update(delta)
         }
-
-        for(Body body : contact_handler.getBodiesToRemove()){
-            crystals.remove(body.getUserData())
-            world.destroyBody(body)
-            player.collectCrystal()
-        }
-        contact_handler.getBodiesToRemove().clear()
     }
 
     @Override
@@ -99,6 +92,13 @@ public class Play extends GameState{
         if(debug){
             debug_renderer.render(world, b2d_cam.combined)
         }
+
+        contact_handler.getBodiesToRemove().each {body ->
+            crystals.remove(body.getUserData().data)
+            world.destroyBody(body)
+            player.collectCrystal()
+        }
+        contact_handler.getBodiesToRemove().clear()
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Play extends GameState{
 
         definition.position.set(30f / PlayStateConstants.PIXELS_PER_METER as float, 200f / PlayStateConstants.PIXELS_PER_METER as float)
         definition.type = BodyDef.BodyType.DynamicBody
-        definition.linearVelocity.set(0.1f, 0f)
+        definition.linearVelocity.set(0.5f, 0f)
 
         Body body = world.createBody(definition)
 
