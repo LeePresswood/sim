@@ -13,6 +13,7 @@ class ResourceManager {
         textures = new HashMap<>()
         loadTexture("images/bunny.png", "bunny")
         loadTexture("images/crystal.png", "crystal")
+        loadTexture("images/hud.png", "hud")
     }
 
     public void loadTexture(String path, String key){
