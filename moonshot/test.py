@@ -18,12 +18,12 @@ def circle(x, y, radius):
 
 
 def ship(x, y):
-    # Ship is an equilateral triangle centered around x,y
-    side_length = 10
+    # Ship is an isosceles triangle with x,y being the center of the shortest side.
+    side_length = 40
     vertices = [
-        x - 0.866 * side_length, y - 0.5 * side_length,
-        x + 0.866 * side_length, y - 0.5 * side_length,
-        x, y + 1.0 * side_length
+        x - side_length * cos(pi / 2.65), y,
+        x + side_length * cos(pi / 2.65), y,
+        x, y + side_length * sin(pi / 2.65)
     ]
     vertices_gl = (GLfloat * len(vertices))(*vertices)
     glVertexPointer(2, GL_FLOAT, 0, vertices_gl)
@@ -35,10 +35,12 @@ def ship(x, y):
 # Direct OpenGL commands to this window.
 window = pyglet.window.Window()
 glEnableClientState(GL_VERTEX_ARRAY)
+fps_display = pyglet.clock.ClockDisplay() # see programming guide pg 48
 
 
 @window.event
 def on_draw():
+    fps_display.draw()
     glClear(GL_COLOR_BUFFER_BIT)
     glLoadIdentity()
 
