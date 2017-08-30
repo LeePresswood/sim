@@ -20,9 +20,9 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     render() {
         const style: object = {
-            backgroundColor: 'black',
             height: '100vh',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            backgroundColor: '#eaeaea'
         };
 
         return (

@@ -27,8 +27,9 @@ class Boid extends React.Component<BoidProps, BoidState> {
             display: 'inline',
             left: this.state.x,
             bottom: this.state.y,
-            width: '100px',
-            height: '100px',
+            width: '15px',
+            height: '15px',
+            borderRadius: '50%',
             backgroundColor: 'blue',
         };
 
